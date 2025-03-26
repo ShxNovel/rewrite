@@ -1,0 +1,26 @@
+{
+  "name": "@shxnovel/rewrite",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "main": "./dist/shxRewrite.umd.cjs",
+  "module": "./dist/shxRewrite.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "types": "./types/index.d.ts",
+    "import": "./dist/shxRewrite.js",
+    "require": "./dist/shxRewrite.umd.cjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && vite build"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.3",
+    "vite": "^6.1.1",
+    "vitest": "^3.0.9"
+  }
+}
