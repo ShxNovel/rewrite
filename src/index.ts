@@ -1,2 +1,2 @@
-export * from "./rewrite";
+export * from "./core";
 // export * from "./parser";
