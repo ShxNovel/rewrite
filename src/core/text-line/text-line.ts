@@ -18,23 +18,28 @@ export interface TextLine extends TextMethods, Partial<UserTextMethods> {
     textLine: TextUnit[];
 }
 
+const TextMethodsImpl = {
+    text(this: TextLine, word: string) {
+        this.textLine.push({
+            type: "Text",
+            args: { word },
+        });
+        return this;
+    },
+    pause(this: TextLine, ms: number) {
+        this.textLine.push({
+            type: "Pause",
+            args: { ms },
+        });
+        return this;
+    },
+};
+
 export function rTextLine() {
     const result: TextLine = {
         textLine: [] as TextUnit[],
-        text(word: string) {
-            this.textLine.push({
-                type: "Text",
-                args: { word },
-            });
-            return this;
-        },
-        pause(ms: number) {
-            this.textLine.push({
-                type: "Pause",
-                args: { ms },
-            });
-            return this;
-        },
+
+        ...TextMethodsImpl,
         ...TextAddon,
     };
 

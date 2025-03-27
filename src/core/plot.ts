@@ -30,20 +30,33 @@ export type RewritePlotLine = {
     motion: MotionLine;
 };
 
-export type RewritePlot = RewritePlotAttribute &
-    RewritePlotLine & {
-        /**
-         * Initializes a new plot instance
-         * and pushes the plot to rewrite stack
-         */
-        make(args: Partial<RewritePlotLine>): RewritePlot;
+export type RewritePlot = RewritePlotAttribute & RewritePlotLine & PlotMethods;
 
-        /**
-         * With side-effects. \
-         * Apply user arguments to current plot configuration
-         */
-        use(args: Partial<RewritePlotAttribute>): RewritePlot;
-    };
+export type PlotMethods = {
+    /**
+     * Initializes a new plot instance
+     * and pushes the plot to rewrite stack
+     */
+    make(args: Partial<RewritePlotLine>): RewritePlot;
+
+    /**
+     * With side-effects. \
+     * Apply user arguments to current plot configuration
+     */
+    use(args: Partial<RewritePlotAttribute>): RewritePlot;
+};
+
+const PlotDefault: PlotMethods = {
+    make(args = {}) {
+        const result = mergeArgs(this as RewritePlot, args);
+        rewritePush(result);
+        return result;
+    },
+
+    use(args = {}) {
+        return Object.assign(this as RewritePlot, args);
+    },
+};
 
 export function rPlot(userArgs: Partial<RewritePlot>) {
     const defaultPlot: RewritePlot = {
@@ -52,15 +65,7 @@ export function rPlot(userArgs: Partial<RewritePlot>) {
         text: rTextLine(),
         motion: rMotionLine(),
 
-        make(args: Partial<RewritePlotLine> = {}) {
-            const result = mergeArgs(this, args);
-            rewritePush(result);
-            return result;
-        },
-
-        use(args) {
-            return Object.assign(this, args);
-        },
+        ...PlotDefault,
     };
 
     return mergeArgs(defaultPlot, userArgs);
