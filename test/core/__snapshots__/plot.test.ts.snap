@@ -1,0 +1,85 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`rPlot.type 1`] = `
+{
+  "begin": [Function],
+  "icon": "name",
+  "motion": {
+    "motionLine": [],
+    "r": [Function],
+  },
+  "text": {
+    "pause": [Function],
+    "text": [Function],
+    "textLine": [],
+  },
+  "title": "title",
+  "type": "Talk",
+  "use": [Function],
+  "useInfo": [Function],
+  "useMotion": [Function],
+  "useText": [Function],
+}
+`;
+
+exports[`rPlot.type 2`] = `
+{
+  "begin": [Function],
+  "icon": "name",
+  "motion": {
+    "motionLine": [],
+    "r": [Function],
+  },
+  "text": {
+    "pause": [Function],
+    "text": [Function],
+    "textLine": [],
+  },
+  "title": "title",
+  "type": "Talk",
+  "use": [Function],
+  "useInfo": [Function],
+  "useMotion": [Function],
+  "useText": [Function],
+}
+`;
+
+exports[`rPlot.type 3`] = `
+{
+  "begin": [Function],
+  "motion": {
+    "motionLine": [],
+    "r": [Function],
+  },
+  "text": {
+    "pause": [Function],
+    "text": [Function],
+    "textLine": [],
+  },
+  "type": "Aside",
+  "use": [Function],
+  "useInfo": [Function],
+  "useMotion": [Function],
+  "useText": [Function],
+}
+`;
+
+exports[`rPlot.type 4`] = `
+{
+  "begin": [Function],
+  "motion": {
+    "motionLine": [],
+    "r": [Function],
+  },
+  "text": {
+    "pause": [Function],
+    "text": [Function],
+    "textLine": [],
+  },
+  "type": "Choice",
+  "use": [Function],
+  "useInfo": [Function],
+  "useMotion": [Function],
+  "useText": [Function],
+}
+`;
