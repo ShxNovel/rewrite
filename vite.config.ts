@@ -6,6 +6,7 @@ import { resolve } from "path";
 export default defineConfig({
     test: {
         root: "test",
+        clearMocks: true,
     },
     build: {
         lib: {

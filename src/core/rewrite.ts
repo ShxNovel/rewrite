@@ -1,30 +1,43 @@
-import type { RewritePlot } from "./plot";
+import type { Plot } from "./plot";
 
-const files = [];
+export type RewriteFile = {
+    name: string;
+    path: string;
+    content: Plot[];
+    plotFlow: boolean;
+};
 
-let nowFile = {
+export const RewriteFiles: RewriteFile[] = [];
+
+let nowFile: RewriteFile = {
     name: "",
     path: "",
-    content: [] as RewritePlot[],
+    content: [],
+    plotFlow: false,
 };
 
 function initFile(name: string = "", path: string = "") {
     nowFile = {
         name,
         path,
-        content: [] as RewritePlot[],
+        content: [],
+        plotFlow: false,
     };
+}
+
+export function useFlow(enable: boolean = true) {
+    nowFile.plotFlow = enable;
 }
 
 export function rewriteBegin(name: string, path: string) {
     initFile(name, path);
 }
 
-export function rewritePush(plot: RewritePlot) {
+export function rewritePush(plot: Plot) {
     nowFile.content.push(plot);
 }
 
 export function rewriteEnd() {
-    files.push(nowFile);
+    RewriteFiles.push(nowFile);
     initFile();
 }

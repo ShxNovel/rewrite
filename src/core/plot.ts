@@ -5,68 +5,115 @@ import type { TextLine } from "./text-line";
 import { rTextLine } from "./text-line";
 import { rMotionLine, type MotionLine } from "./motion-line";
 
-export type RewriteInfo = {
+export type Info = {
     title?: string;
     icon?: string;
 };
 
 /**
  * Creates a plot information object;
- * It can be used by {@link RewritePlot.use}.
+ * It can be used by {@link Plot.use}.
  */
-export function rInfo(userArgs: Partial<RewriteInfo>): Partial<RewriteInfo> {
+export function rInfo(userArgs: Partial<Info>): Partial<Info> {
     return makeArgs({}, userArgs);
 }
 
-export type RewritePlotAttribute = {
+export type PlotAttribute = {
     /** The type of plot, defaults to "Talk" */
     type: "Talk" | "Aside" | "Choice";
 
     label?: string;
-} & RewriteInfo;
+} & Info;
 
-export type RewritePlotLine = {
+export type PlotLine = {
     text: TextLine;
     motion: MotionLine;
 };
 
-export type RewritePlot = RewritePlotAttribute & RewritePlotLine & PlotMethods;
+export type BasicPlot = PlotAttribute & PlotLine;
+export type Plot = BasicPlot & PlotEffect & PlotPure;
 
-export type PlotMethods = {
+export type PlotPure = {
+    /** Creates a new `Talk` plot instance. */
+    get talk(): Plot;
+    /** Creates a new `Aside` plot instance. */
+    get aside(): Plot;
+    /** Creates a new `Choice` plot instance. */
+    get choice(): Plot;
+};
+
+export type PlotEffect = {
     /**
      * Initializes a new plot instance
      * and pushes the plot to rewrite stack
      */
-    make(args: Partial<RewritePlotLine>): RewritePlot;
-
-    /**
-     * With side-effects. \
-     * Apply user arguments to current plot configuration
-     */
-    use(args: Partial<RewritePlotAttribute>): RewritePlot;
+    begin(args?: Partial<BasicPlot>): Plot;
+    use(args: Partial<BasicPlot>): Plot;
+    useText(args: TextLine): Plot;
+    useMotion(args: MotionLine): Plot;
+    useInfo(args: Partial<PlotAttribute>): Plot;
 };
 
-const PlotDefault: PlotMethods = {
-    make(args = {}) {
-        const result = mergeArgs(this as RewritePlot, args);
+const PlotEffect: PlotEffect = {
+    begin(this: Plot, args = {}) {
+        const result = mergeArgs(this, args);
         rewritePush(result);
         return result;
     },
+    use(this: Plot, args) {
+        return Object.assign(this, args);
+    },
 
-    use(args = {}) {
-        return Object.assign(this as RewritePlot, args);
+    useText(this: Plot, args) {
+        const object: Partial<PlotLine> = { text: args };
+        Object.assign(this, object);
+        return this;
+    },
+
+    useMotion(this: Plot, args) {
+        const object: Partial<PlotLine> = { motion: args };
+        Object.assign(this, object);
+        return this;
+    },
+
+    useInfo(this: Plot, args) {
+        return Object.assign(this, args);
     },
 };
 
-export function rPlot(userArgs: Partial<RewritePlot>) {
-    const defaultPlot: RewritePlot = {
-        type: "Talk",
+export function rPlot(userArgs: Partial<Plot> = {}): Plot {
+    const ResultPure: PlotPure = Object.defineProperties({} as PlotPure, {
+        talk: {
+            get() {
+                const base = rPlot({ type: "Talk" });
+                return mergeArgs(base, this);
+            },
+            enumerable: false,
+        },
+        aside: {
+            get() {
+                const base = rPlot({ type: "Aside" });
+                return base;
+            },
+            enumerable: false,
+        },
+        choice: {
+            get() {
+                const base = rPlot({ type: "Choice" });
+                return base;
+            },
+            enumerable: false,
+        },
+    });
+
+    const result = Object.assign(ResultPure, {
+        type: "Talk" as PlotAttribute["type"],
 
         text: rTextLine(),
         motion: rMotionLine(),
 
-        ...PlotDefault,
-    };
+        ...PlotEffect,
+    }) satisfies Plot;
 
-    return mergeArgs(defaultPlot, userArgs);
+    return mergeArgs(result, userArgs);
 }
