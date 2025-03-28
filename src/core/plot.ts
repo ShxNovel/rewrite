@@ -56,7 +56,8 @@ export type PlotEffect = {
 
 const PlotEffect: PlotEffect = {
     begin(this: Plot, args = {}) {
-        const result = mergeArgs(this, args);
+        const base = rPlot();
+        const result = mergeArgs(mergeArgs(base, this), args);
         rewritePush(result);
         return result;
     },
@@ -93,14 +94,14 @@ export function rPlot(userArgs: Partial<Plot> = {}): Plot {
         aside: {
             get() {
                 const base = rPlot({ type: "Aside" });
-                return base;
+                return mergeArgs(base, this);
             },
             enumerable: false,
         },
         choice: {
             get() {
                 const base = rPlot({ type: "Choice" });
-                return base;
+                return mergeArgs(base, this);
             },
             enumerable: false,
         },
