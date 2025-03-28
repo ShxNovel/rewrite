@@ -86,22 +86,25 @@ export function rPlot(userArgs: Partial<Plot> = {}): Plot {
     const ResultPure: PlotPure = Object.defineProperties({} as PlotPure, {
         talk: {
             get() {
-                const base = rPlot({ type: "Talk" });
-                return mergeArgs(base, this);
+                const base = rPlot();
+                const temp: Plot = mergeArgs(base, this);
+                return temp.useInfo({ type: "Talk" });
             },
             enumerable: false,
         },
         aside: {
             get() {
-                const base = rPlot({ type: "Aside" });
-                return mergeArgs(base, this);
+                const base = rPlot();
+                const temp: Plot = mergeArgs(base, this);
+                return temp.useInfo({ type: "Aside" });
             },
             enumerable: false,
         },
         choice: {
             get() {
-                const base = rPlot({ type: "Choice" });
-                return mergeArgs(base, this);
+                const base = rPlot();
+                const temp: Plot = mergeArgs(base, this);
+                return temp.useInfo({ type: "Choice" });
             },
             enumerable: false,
         },

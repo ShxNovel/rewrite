@@ -74,3 +74,15 @@ test("rPlot.type", () => {
     expect(p21).toMatchSnapshot();
     expect(p31).toMatchSnapshot();
 });
+
+test("rPlot.mix", () => {
+    const p1 = rPlot({ icon: "name", title: "title" });
+    const p2 = p1.aside;
+    
+    p1.useInfo({ type: "Aside" });
+
+    console.log(p1)
+    console.log(p2)
+
+    // expect(p1).toEqual(p2);
+});
