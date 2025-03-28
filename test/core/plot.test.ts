@@ -17,7 +17,7 @@ test("rPlot", () => {
     expect(p1).toEqual(p2);
 });
 
-test("rPlot.useInfo", () => {
+test("rPlot.useInfo 1", () => {
     const p1 = rPlot({ icon: "name", title: "title" });
     const p2 = rPlot({ icon: "name", title: "title" });
 
@@ -58,7 +58,7 @@ test("rPlot.begin", () => {
     expect(t1).toEqual(t2);
 });
 
-test("rPlot.type", () => {
+test("rPlot.pure-methods", () => {
     const p1 = rPlot({ icon: "name", title: "title" });
     const p11 = p1.talk;
     const p21 = p11.aside;
@@ -66,7 +66,7 @@ test("rPlot.type", () => {
 
     // no side effect
     expect(p1).toStrictEqual(p11);
-    expect(Object.is(p1, p11)).toEqual(false);
+    expect(p1).not.toBe(p11);
 
     // other check
     expect(p1).toMatchSnapshot();
@@ -75,14 +75,12 @@ test("rPlot.type", () => {
     expect(p31).toMatchSnapshot();
 });
 
-test("rPlot.mix", () => {
+test("rPlot.aside", () => {
     const p1 = rPlot({ icon: "name", title: "title" });
     const p2 = p1.aside;
-    
+
     p1.useInfo({ type: "Aside" });
 
-    console.log(p1)
-    console.log(p2)
-
-    // expect(p1).toEqual(p2);
+    expect(p1).not.toBe(p2)
+    expect(p1).toEqual(p2);
 });

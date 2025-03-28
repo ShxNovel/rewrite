@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`rPlot.type 1`] = `
+exports[`rPlot.pure-methods 1`] = `
 {
   "begin": [Function],
   "icon": "name",
@@ -22,7 +22,7 @@ exports[`rPlot.type 1`] = `
 }
 `;
 
-exports[`rPlot.type 2`] = `
+exports[`rPlot.pure-methods 2`] = `
 {
   "begin": [Function],
   "icon": "name",
@@ -44,7 +44,7 @@ exports[`rPlot.type 2`] = `
 }
 `;
 
-exports[`rPlot.type 3`] = `
+exports[`rPlot.pure-methods 3`] = `
 {
   "begin": [Function],
   "icon": "name",
@@ -66,7 +66,7 @@ exports[`rPlot.type 3`] = `
 }
 `;
 
-exports[`rPlot.type 4`] = `
+exports[`rPlot.pure-methods 4`] = `
 {
   "begin": [Function],
   "icon": "name",
