@@ -25,7 +25,7 @@ const filesMap = allFiles.map((file) => {
     return resolvedPath;
 });
 
-test("some", async () => {
+test("begin", async () => {
     let i = 0;
     for (const one of filesMap) {
         file.rewriteBegin(path.basename(one), allFiles[i]);
@@ -35,5 +35,5 @@ test("some", async () => {
     }
 
     const result = file.RewriteFiles;
-    // expect(result).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
 });

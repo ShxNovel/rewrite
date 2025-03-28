@@ -1,0 +1,95 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`begin 1`] = `
+[
+  {
+    "content": [
+      {
+        "begin": [Function],
+        "icon": "name",
+        "motion": {
+          "motionLine": [],
+          "r": [Function],
+        },
+        "text": {
+          "pause": [Function],
+          "text": [Function],
+          "textLine": [
+            {
+              "args": {
+                "word": "Hello",
+              },
+              "type": "Text",
+            },
+            {
+              "args": {
+                "ms": 1000,
+              },
+              "type": "Pause",
+            },
+            {
+              "args": {
+                "word": " World",
+              },
+              "type": "Text",
+            },
+          ],
+        },
+        "title": "title",
+        "type": "Talk",
+        "use": [Function],
+        "useInfo": [Function],
+        "useMotion": [Function],
+        "useText": [Function],
+      },
+      {
+        "begin": [Function],
+        "icon": "name",
+        "motion": {
+          "motionLine": [],
+          "r": [Function],
+        },
+        "text": {
+          "pause": [Function],
+          "text": [Function],
+          "textLine": [
+            {
+              "args": {
+                "word": "Hello",
+              },
+              "type": "Text",
+            },
+            {
+              "args": {
+                "ms": 1000,
+              },
+              "type": "Pause",
+            },
+            {
+              "args": {
+                "word": " World",
+              },
+              "type": "Text",
+            },
+          ],
+        },
+        "title": "title2",
+        "type": "Talk",
+        "use": [Function],
+        "useInfo": [Function],
+        "useMotion": [Function],
+        "useText": [Function],
+      },
+    ],
+    "name": "a.ts",
+    "path": "test\\user-like\\files\\a.ts",
+    "plotFlow": false,
+  },
+  {
+    "content": [],
+    "name": "b.ts",
+    "path": "test\\user-like\\files\\b.ts",
+    "plotFlow": true,
+  },
+]
+`;
