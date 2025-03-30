@@ -6,8 +6,8 @@ import { rTextLine } from "./text-line";
 import { rMotionLine, type MotionLine } from "./motion-line";
 
 export type Info = {
-    title?: string;
-    icon?: string;
+    title: string | undefined;
+    icon: string | undefined;
 };
 
 /**
@@ -22,7 +22,7 @@ export type PlotAttribute = {
     /** The type of plot, defaults to "Talk" */
     type: "Talk" | "Aside" | "Choice";
 
-    label?: string;
+    label: string | undefined;
 } & Info;
 
 export type PlotLine = {
@@ -33,16 +33,16 @@ export type PlotLine = {
 export type BasicPlot = PlotAttribute & PlotLine;
 export type Plot = BasicPlot & PlotEffect & PlotPure;
 
-export type PlotPure = {
+export interface PlotPure {
     /** Creates a new `Talk` plot instance. */
     get talk(): Plot;
     /** Creates a new `Aside` plot instance. */
     get aside(): Plot;
     /** Creates a new `Choice` plot instance. */
     get choice(): Plot;
-};
+}
 
-export type PlotEffect = {
+export interface PlotEffect {
     /**
      * Initializes a new plot instance
      * and pushes the plot to rewrite stack
@@ -52,7 +52,7 @@ export type PlotEffect = {
     useText(args: TextLine): Plot;
     useMotion(args: MotionLine): Plot;
     useInfo(args: Partial<PlotAttribute>): Plot;
-};
+}
 
 const PlotEffect: PlotEffect = {
     begin(this: Plot, args = {}) {
@@ -112,6 +112,10 @@ export function rPlot(userArgs: Partial<Plot> = {}): Plot {
 
     const result = Object.assign(ResultPure, {
         type: "Talk" as PlotAttribute["type"],
+        label: undefined,
+
+        title: undefined,
+        icon: undefined,
 
         text: rTextLine(),
         motion: rMotionLine(),

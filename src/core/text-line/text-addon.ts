@@ -1,8 +1,8 @@
 import type { TextMethodLike } from "./text-line";
 
-export interface UserTextMethods {}
+export interface UserTextUnitType {}
 
-export type UserTextUnitType = "__some__";
+export interface UserTextMethods {}
 
 export const TextAddon: UserTextMethods = {};
 

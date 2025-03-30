@@ -1,8 +1,8 @@
 import type { MotionMethodLike } from "./motion-line";
 
-export interface UserMotionMethods {}
+export interface UserMotionUnitType {}
 
-export type UserMotionUnitType = "__some__";
+export interface UserMotionMethods {}
 
 export const MotionAddon: UserMotionMethods = {};
 

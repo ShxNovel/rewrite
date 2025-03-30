@@ -4,6 +4,7 @@ exports[`rPlot.pure-methods 1`] = `
 {
   "begin": [Function],
   "icon": "name",
+  "label": undefined,
   "motion": {
     "motionLine": [],
     "r": [Function],
@@ -26,6 +27,7 @@ exports[`rPlot.pure-methods 2`] = `
 {
   "begin": [Function],
   "icon": "name",
+  "label": undefined,
   "motion": {
     "motionLine": [],
     "r": [Function],
@@ -48,6 +50,7 @@ exports[`rPlot.pure-methods 3`] = `
 {
   "begin": [Function],
   "icon": "name",
+  "label": undefined,
   "motion": {
     "motionLine": [],
     "r": [Function],
@@ -70,6 +73,7 @@ exports[`rPlot.pure-methods 4`] = `
 {
   "begin": [Function],
   "icon": "name",
+  "label": undefined,
   "motion": {
     "motionLine": [],
     "r": [Function],

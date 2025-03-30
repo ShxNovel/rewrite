@@ -1,9 +1,12 @@
 import { TextAddon, UserTextMethods, UserTextUnitType } from "./text-addon";
 
-export type TextUnitType = "Text" | "Pause" | UserTextUnitType;
+export interface TextUnitType extends UserTextUnitType {
+    Text: never;
+    Pause: never;
+}
 
 export type TextUnit = {
-    type: TextUnitType;
+    type: keyof TextUnitType;
     args: Record<PropertyKey, unknown>;
 };
 

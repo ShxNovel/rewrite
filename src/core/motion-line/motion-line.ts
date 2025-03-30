@@ -5,10 +5,10 @@ import {
     UserMotionUnitType,
 } from "./motion-addon";
 
-export type MotionUnitType = "Text" | "Pause" | UserMotionUnitType;
+export interface MotionUnitType extends UserMotionUnitType {}
 
 export type MotionUnit = {
-    type: MotionUnitType;
+    type: keyof MotionUnitType;
     args: Record<PropertyKey, unknown>;
 };
 
@@ -24,6 +24,7 @@ export interface MotionLine extends MotionMethods, Partial<UserMotionMethods> {
 }
 
 const MotionMethodsImpl = {
+    /** side effect */
     r(this: MotionLine, arg1: RewriteItem | string, scene: string = "main") {
         if (this.motionLine.length === 0) {
             throw new Error(
