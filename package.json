@@ -15,7 +15,7 @@
     "require": "./dist/rewrite.umd.cjs"
   },
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --typecheck",
     "clean:types": "rimraf types",
     "build": "npm run clean:types && tsc && vite build"
   },
