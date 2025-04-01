@@ -1,6 +1,8 @@
 export interface MotionAddonType {}
 export interface RewriteMotionType extends MotionAddonType {
-    pause: never;
+    goto: never;
+    move: never;
+    opacity: never;
 }
 
 export type RewriteMotion = {

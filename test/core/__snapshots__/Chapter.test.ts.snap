@@ -1,0 +1,78 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Chapter > content 1`] = `
+[
+  {
+    "content": [
+      "some",
+      "text",
+      "",
+    ],
+    "name": "aside",
+  },
+  {
+    "content": [
+      "some",
+      "text",
+      "",
+    ],
+    "name": "hero",
+  },
+]
+`;
+
+exports[`Chapter > pause 1`] = `
+[
+  {
+    "content": [
+      "some",
+      {
+        "args": {
+          "ms": 10,
+        },
+        "type": "pause",
+      },
+      "",
+      "",
+      {
+        "args": {
+          "ms": 10,
+        },
+        "type": "pause",
+      },
+      "",
+      {
+        "args": {
+          "ms": 10,
+        },
+        "type": "pause",
+      },
+      "text",
+      {
+        "args": {
+          "ms": 10,
+        },
+        "type": "pause",
+      },
+      "",
+      "",
+      {
+        "args": {
+          "ms": 10,
+        },
+        "type": "pause",
+      },
+      "",
+    ],
+    "name": "aside",
+  },
+  {
+    "content": [
+      "some",
+      "text",
+      "",
+    ],
+    "name": "hero",
+  },
+]
+`;

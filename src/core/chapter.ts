@@ -7,58 +7,55 @@ export interface Talk {
 
 export type ChapterUnit = Talk;
 
-export class Chapter<T extends string = never> {
-    characters: Map<string, string | null> = new Map();
-    cache: ChapterUnit[] = [];
+export function chapter() {
+    const characters = new Map<string, string | null>();
+    const memory: ChapterUnit[] = [];
 
-    constructor(private readonly keys: T[] = []) {}
+    class Chapter<T extends string = never> {
+        constructor(readonly keys: T[] = []) {}
 
-    use<U extends string>(name: U, title: string | null): Chapter<T | U> {
-        this.characters.set(name, title);
-        return new Chapter([...this.keys, name] as T[]);
-    }
-
-    one(name: typeof this.getKeys extends () => (infer U)[] ? U : never) {
-        const that = this;
-
-        function init(some: TemplateStringsArray, ...values: RewriteText[]) {
-            const content: RewriteText[] = [];
-            const talk: Talk = { name, content };
-            console.log('xxx ', that);
-            that.cache.push(talk);
-
-            function link(some: TemplateStringsArray, ...values: RewriteText[]) {
-                const len = some.length;
-
-                content.push(some[0]);
-                for (let i = 1; i < len; i++) {
-                    content.push(values[i - 1]);
-                    content.push(some[i]);
-                }
-
-                return link;
-            }
-
-            return link(some, ...values);
+        /**
+         * Adds a new character to the chapter with the specified name and title.
+         * @param name - The name identifier for the character
+         * @param title - The display title for the character, can be null
+         */
+        use<U extends string>(name: U, title: string | null): Chapter<T | U> {
+            characters.set(name, title);
+            return new Chapter([...this.keys, name] as T[]);
         }
 
-        return init;
+        character(name: typeof this.getKeys extends () => (infer U)[] ? U : never) {
+            function init(some: TemplateStringsArray, ...values: RewriteText[]) {
+                const content: RewriteText[] = [];
+                const talk: Talk = { name, content };
+                memory.push(talk);
+
+                function link(some: TemplateStringsArray, ...values: RewriteText[]) {
+                    const len = some.length;
+
+                    content.push(some[0]);
+                    for (let i = 1; i < len; i++) {
+                        content.push(values[i - 1]);
+                        content.push(some[i]);
+                    }
+
+                    return link;
+                }
+
+                return link(some, ...values);
+            }
+
+            return init;
+        }
+
+        getKeys(): T[] {
+            return this.keys;
+        }
+
+        EndOfChapter() {
+            return { characters, memory };
+        }
     }
 
-    wrap<T extends Function>(this: ThisParameterType<T>, item: T): T {
-        return item.bind(this);
-    }
-
-    getKeys(): T[] {
-        return this.keys;
-    }
+    return new Chapter();
 }
-
-/**
- *  import { one } from "./one";
- *  type characters = typeof file.getKeys extends () => (infer U)[] ? U : never;
- *  const character = one<characters>;
- *  const file = new Chapter().use("a", "xxx");
- *  const A = character("a");
- *  A `some` `text` ``;
- */
