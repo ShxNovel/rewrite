@@ -17,7 +17,7 @@ describe('Chapter', () => {
     test('type', () => {
         const file = chapter().use('aside', null).use('hero', 'name here');
 
-        const character = file.character;
+        const { character, EndOfChapter } = file;
         const x = character('aside'); // 旁白
         const you = character('hero'); // 你
 
@@ -30,7 +30,8 @@ describe('Chapter', () => {
         // @ts-expect-error
         you`some${say()}``text```;
 
-        expect(file.getKeys()).toEqual(['aside', 'hero']);
+        const res = EndOfChapter();
+        expect(res.keys).toEqual(['aside', 'hero']);
     });
 
     test('content', () => {
@@ -61,8 +62,13 @@ describe('Chapter', () => {
         expect(res.memory).toMatchSnapshot();
     });
 
-    test('some', () => {
+    test('duplicated name', () => {
         const { use, character, EndOfChapter } = chapter();
-        // use('some', null).use('some', null);
+
+        // @ts-expect-error
+        use('some', null).use('some', null);
+
+        const res = EndOfChapter();
+        expect(res).toMatchSnapshot();
     });
 });
