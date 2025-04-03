@@ -15,7 +15,7 @@ describe('text', () => {
 
 describe('Chapter', () => {
     test('type', () => {
-        const file = chapter().use('aside', null).use('hero', 'name here');
+        const file = chapter();
 
         const { character, EndOfChapter } = file;
         const x = character('aside'); // 旁白
@@ -31,11 +31,11 @@ describe('Chapter', () => {
         you`some${say()}``text```;
 
         const res = EndOfChapter();
-        expect(res.keys).toEqual(['aside', 'hero']);
+        expect(res.memory).toMatchSnapshot();
     });
 
     test('content', () => {
-        const file = chapter().use('aside', null).use('hero', 'name here');
+        const file = chapter();
         const { character, EndOfChapter } = file;
 
         const x = character('aside');
@@ -43,13 +43,14 @@ describe('Chapter', () => {
 
         x`some``text```;
         you`some``text```;
+        x`some``text```;
 
         const res = EndOfChapter();
         expect(res.memory).toMatchSnapshot();
     });
 
     test('pause', () => {
-        const file = chapter().use('aside', null).use('hero', 'name here');
+        const file = chapter();
         const { character, EndOfChapter } = file;
 
         const x = character('aside');
@@ -62,11 +63,13 @@ describe('Chapter', () => {
         expect(res.memory).toMatchSnapshot();
     });
 
-    test('duplicated name', () => {
-        const { use, character, EndOfChapter } = chapter();
+    test('aim', () => {
+        const { effect, EndOfChapter } = chapter();
+
+        effect().aim('some').move();
 
         // @ts-expect-error
-        use('some', null).use('some', null);
+        effect().move();
 
         const res = EndOfChapter();
         expect(res).toMatchSnapshot();

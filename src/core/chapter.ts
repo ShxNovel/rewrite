@@ -1,38 +1,30 @@
-import { RewriteText } from './text';
+import { cache } from './cache';
+import { makeEffect, Effect, EffectMethods } from './effect';
+import { RewriteText, Text } from './text';
 
-export interface Talk {
-    type: 'talk';
-    name: string;
-    content: RewriteText[];
-}
+export type ChapterUnit = Text | Effect;
 
-export type ChapterUnit = Talk;
+export type LinkText = (some: TemplateStringsArray, ...values: RewriteText[]) => LinkText;
 
-type LinkText = (some: TemplateStringsArray, ...values: RewriteText[]) => LinkText;
-type ChapterInfo = {
-    keys: string[];
-    characters: Map<string, string | null>;
+export type ChapterInfo = {
     memory: ChapterUnit[];
 };
 
 export function chapter() {
-    const keys: string[] = [];
-    const characters = new Map<string, string | null>();
     const memory: ChapterUnit[] = [];
 
-    class Chapter<T extends string = never> {
+    const context: ChapterInfo = { memory };
+
+    cache.push(context);
+
+    class Chapter {
         constructor() {}
 
-        use<U extends string>(name: U & (U extends T ? never : U), title: string | null): Chapter<T | U> {
-            keys.push(name);
-            characters.set(name, title);
-            return new Chapter();
-        }
-
-        character(name: T): LinkText {
+        character(name: string | null): LinkText {
             function init(some: TemplateStringsArray, ...values: RewriteText[]) {
                 const content: RewriteText[] = [];
-                const talk: Talk = { type: 'talk', name, content };
+                const talk: Text = { type: 'text', name, content };
+
                 memory.push(talk);
 
                 function link(some: TemplateStringsArray, ...values: RewriteText[]): LinkText {
@@ -49,8 +41,12 @@ export function chapter() {
             return init;
         }
 
+        effect(): EffectMethods {
+            return makeEffect(context);
+        }
+
         EndOfChapter(): ChapterInfo {
-            return { keys, characters, memory };
+            return context;
         }
     }
 

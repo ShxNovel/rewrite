@@ -1,5 +1,37 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Chapter > aim 1`] = `
+{
+  "memory": [
+    {
+      "content": [
+        {
+          "args": {
+            "name": "some",
+            "scene": "main",
+          },
+          "type": "aim",
+        },
+        {
+          "args": {},
+          "type": "move",
+        },
+      ],
+      "type": "motion",
+    },
+    {
+      "content": [
+        {
+          "args": {},
+          "type": "move",
+        },
+      ],
+      "type": "motion",
+    },
+  ],
+}
+`;
+
 exports[`Chapter > content 1`] = `
 [
   {
@@ -9,7 +41,7 @@ exports[`Chapter > content 1`] = `
       "",
     ],
     "name": "aside",
-    "type": "talk",
+    "type": "text",
   },
   {
     "content": [
@@ -18,22 +50,18 @@ exports[`Chapter > content 1`] = `
       "",
     ],
     "name": "hero",
-    "type": "talk",
+    "type": "text",
+  },
+  {
+    "content": [
+      "some",
+      "text",
+      "",
+    ],
+    "name": "aside",
+    "type": "text",
   },
 ]
-`;
-
-exports[`Chapter > duplicated name 1`] = `
-{
-  "characters": Map {
-    "some" => null,
-  },
-  "keys": [
-    "some",
-    "some",
-  ],
-  "memory": [],
-}
 `;
 
 exports[`Chapter > pause 1`] = `
@@ -80,7 +108,7 @@ exports[`Chapter > pause 1`] = `
       "",
     ],
     "name": "aside",
-    "type": "talk",
+    "type": "text",
   },
   {
     "content": [
@@ -89,7 +117,38 @@ exports[`Chapter > pause 1`] = `
       "",
     ],
     "name": "hero",
-    "type": "talk",
+    "type": "text",
+  },
+]
+`;
+
+exports[`Chapter > type 1`] = `
+[
+  {
+    "content": [
+      "some",
+      {
+        "a": 1,
+      },
+      "",
+      "text",
+      "",
+    ],
+    "name": "aside",
+    "type": "text",
+  },
+  {
+    "content": [
+      "some",
+      {
+        "a": 1,
+      },
+      "",
+      "text",
+      "",
+    ],
+    "name": "hero",
+    "type": "text",
   },
 ]
 `;
